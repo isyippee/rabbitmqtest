@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<em>Notice：You should ........</em>
+<div class="test">
+
+    <div class="consumer">
+        <h3>Define consumer</h3>
+        <form method='post'>
+            {% csrf_token %}
+            <table>
+                {{ c_form.as_table }}
+            </table>
+            <input type="submit" value="Define">
+        </form>
+        <div class="output" id="output"></div>
+    </div>
+
+    <div class="publisher">
+        <h3>Publish Message</h3>
+
+        <form method='post'>
+            {% csrf_token %}
+            <table>
+                {{ s_form.as_table }}
+            </table>
+            <input type="submit" value="Publish">
+        </form>
+    </div>
+</div>
+{% load staticfiles %}
+<script src="{% static 'jquery.min.js' %}"></script>
+<script>
+    //$('#output').scrollTop($('#output')[0].scrollHeight);
+    $.ajax({
+        type: 'GET',
+        url: '/ajax',
+        dataType: 'html',
+        success: function (data) {
+            $('#output').html(data);
+        }
+    });
+</script>
+
+{% endblock %}

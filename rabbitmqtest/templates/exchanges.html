@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Exchanges</h3>
+<a href="/">create</a>
+<div class="clear"></div>
+<table>
+    <tr>
+        <th>name</th>
+        <th>type</th>
+    </tr>
+    {% for i in value %}
+    <tr>
+        <td>{{i.name}}</td>
+        <td>{{i.type}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
