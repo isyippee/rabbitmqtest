@@ -20,24 +20,12 @@ sudo rabbitmq-plugins enable rabbitmq_management
 
 ## django
 
+1. 进入项目目录，启动 django
 ```
-django-admin startproject rabbitmqtest
-```
-
-setting.py
-```
-INSTALLED_APPS= [...,
-'rabbitmqtest',
-]
+python manager.py runserver :8000
 ```
 
-```
-touch views.py
-mkdir templates
-mkdir static
-touch forms.py
-touch rabbitmq.py
-```
+2. 浏览器访问 `http://127.0.0.1:8000`即可
 
 ## typical
 
