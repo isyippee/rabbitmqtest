@@ -1,6 +1,9 @@
 # coding: utf-8
-import pika
+import commands
+import re
 import requests
+
+import pika
 
 global ALL_MESSAGE
 ALL_MESSAGE = ''
@@ -10,7 +13,24 @@ class RabbitMQInfo(object):
     def __init__(self, host='localhost', username='guest', password='guest'):
         host = host
         self.auth = (username, password)
-        self.url_suff = 'http://%s:15672/api' % host
+        self.port = self._get_port()
+        self.url_suff = 'http://%s:%s/api' % (host, self.port)
+
+    def _get_port(self):
+        stat, output = commands.getstatusoutput('netstat -tnlp | grep 5672 | grep 0.0.0.0:*')
+        if not stat:
+            pattern = re.compile(r':(\d{5})\s')
+            ports = pattern.findall(output)
+        else:
+            raise
+        for port in ports:
+            url = '%s/%s' % ('http://localhost:%s/api' % port, 'overview')
+            try:
+                r = requests.get(url, auth=self.auth, timeout=1)
+            except requests.exceptions.ReadTimeout:
+                continue
+            if r.status_code == 200:
+                return port
 
     def overview(self):
         url = '%s/%s' % (self.url_suff, 'overview')
