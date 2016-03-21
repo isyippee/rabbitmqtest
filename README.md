@@ -15,6 +15,10 @@ sudo pip install requests
 ```
 sudo rabbitmq-plugins enable rabbitmq_management
 ```
+或者
+```
+/usr/lib/rabbitmq/bin/rabbitmq-plugins enable rabbitmq_management
+```
 可登陆 web 管理页面：http://127.0.0.1:15672/, guest/guest   
 对应 http api 的 url：http://127.0.0.1:15672/api/
 
