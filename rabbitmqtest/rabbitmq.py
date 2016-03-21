@@ -7,13 +7,18 @@ import pika
 
 global ALL_MESSAGE
 ALL_MESSAGE = ''
+global PORT
+PORT = ''
 
 
 class RabbitMQInfo(object):
     def __init__(self, host='localhost', username='guest', password='guest'):
         host = host
         self.auth = (username, password)
-        self.port = self._get_port()
+        global PORT
+        if not PORT:
+            PORT = self._get_port()
+        self.port = PORT
         self.url_suff = 'http://%s:%s/api' % (host, self.port)
 
     def _get_port(self):
