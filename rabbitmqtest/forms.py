@@ -1,4 +1,7 @@
+# coding: utf8
+# 定义表单
 from django import forms
+
 from rabbitmqtest.rabbitmq import RabbitMQInfo
 
 
